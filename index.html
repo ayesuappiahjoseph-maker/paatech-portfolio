@@ -8,12 +8,12 @@
     <style>
         /* --- BRAND REPLICATION PALETTE --- */
         :root {
-            --hero-bg: #f5f5f3;        /* Bright bone off-white */
-            --dark-bg: #000000;        /* Pure midnight black */
-            --about-bg: #f0ede4;       /* Warm sand/cream tone */
-            --purple-bg: #5a1aff;      /* Royal purple accent */
-            --accent-neon: #ccff00;    /* Neon yellow-green highlight */
-            --whatsapp-green: #25d366;  /* Authentic brand color */
+            --hero-bg: #f5f5f3;        
+            --dark-bg: #000000;        
+            --about-bg: #f0ede4;       
+            --purple-bg: #5a1aff;      
+            --accent-neon: #ccff00;    
+            --whatsapp-green: #25d366;  
             --text-dark: #000000;
             --text-light: #ffffff;
         }
@@ -34,64 +34,42 @@
             overflow-x: hidden;
         }
 
-        /* --- STYLISH CSS ANIMATIONS & REVEAL ENGINE --- */
+        /* --- STABLE PREDICTABLE ANIMATIONS --- */
+        @keyframes revealTextFade {
+            0% { opacity: 0; transform: translateY(25px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
         @keyframes slideUpHero {
-            0% { opacity: 0; transform: translateY(60px) scale(0.98); }
+            0% { opacity: 0; transform: translateY(40px) scale(0.99); }
             100% { opacity: 1; transform: translateY(0) scale(1); }
         }
         @keyframes pulsePlus {
             0% { transform: scale(1); color: var(--text-dark); }
-            50% { transform: scale(1.3); color: var(--purple-bg); }
+            50% { transform: scale(1.25); color: var(--purple-bg); }
             100% { transform: scale(1); color: var(--text-dark); }
         }
-        @keyframes neonGlowGrid {
-            0% { border-color: #1a1a1a; box-shadow: 0 0 0 rgba(0,0,0,0); }
-            50% { border-color: var(--accent-neon); box-shadow: 0 5px 15px rgba(204, 255, 0, 0.15); }
-            100% { border-color: var(--purple-bg); box-shadow: 0 5px 15px rgba(90, 26, 255, 0.15); }
-        }
-        
-        @keyframes revealWord {
-            to { clip-path: inset(0 0% 0 0); }
+        @keyframes neonBorderGlow {
+            0% { border-color: #1a1a1a; }
+            50% { border-color: var(--accent-neon); }
+            100% { border-color: var(--purple-bg); }
         }
 
-        /* --- INTEGRATED TEXT CLIP-PATH REVEAL --- */
-        .reveal-text {
-            display: flex;
-            flex-wrap: wrap;
-            overflow: hidden; 
-        }
-
-        .reveal-text .word {
-            display: inline-block;
-            clip-path: inset(0 100% 0 0); 
-            animation: revealWord 1s cubic-bezier(.25,.46,.45,.94) forwards;
-            margin-right: 0.4rem;
-            
-            &:nth-child(2) { animation-delay: .15s; }
-            &:nth-child(3) { animation-delay: .3s; }
-            &:nth-child(4) { animation-delay: .45s; }
-            &:nth-child(5) { animation-delay: .6s; }
-            &:nth-child(6) { animation-delay: .75s; }
-        }
-
-        /* Section Container Transitions */
+        /* Fluid Modular Scroll Reveals */
         .reveal-section {
             opacity: 0;
-            transform: translateY(40px);
-            filter: blur(2px);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(35px);
+            transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .reveal-section.active {
             opacity: 1;
             transform: translateY(0);
-            filter: blur(0);
         }
 
-        /* --- HERO CONTAINER (Bone White) --- */
+        /* --- HERO CONTAINER --- */
         .hero-section {
             background-color: var(--hero-bg);
             color: var(--text-dark);
-            padding: 30px 4% 40px 4%;
+            padding: 25px 4% 40px 4%;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -111,7 +89,7 @@
             background: var(--accent-neon);
             padding: 2px 12px;
             border: 2px solid #000;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         .logo:hover {
             transform: rotate(-3deg) scale(1.1);
@@ -151,29 +129,45 @@
 
         .hero-main {
             display: grid;
-            grid-template-columns: 1.4fr 1fr;
+            grid-template-columns: 1.30fr 1fr;
             align-items: flex-end;
-            margin-top: 60px;
-            gap: 60px;
-            animation: slideUpHero 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            margin-top: 50px;
+            gap: 50px;
+            animation: slideUpHero 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
+        
+        /* Staggered Word Presentation Container */
         .hero-title {
-            font-size: 6.2rem;
+            font-size: 5.6rem;
             line-height: 0.85;
             font-weight: 900;
             text-transform: uppercase;
-            letter-spacing: -4px;
+            letter-spacing: -3px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0 15px;
         }
-        .hero-title span {
-            color: var(--accent-neon);
-            -webkit-text-stroke: 2px #000;
+        .hero-title span.word {
+            display: inline-block;
+            opacity: 0;
+            animation: revealTextFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
+        .hero-title span.word:nth-child(1) { animation-delay: 0.1s; }
+        .hero-title span.word:nth-child(2) { animation-delay: 0.2s; }
+        .hero-title span.word:nth-child(3) { animation-delay: 0.3s; }
+        .hero-title span.word:nth-child(4) { animation-delay: 0.4s; }
+        .hero-title span.word:nth-child(5) { animation-delay: 0.5s; }
+        .hero-title span.word:nth-child(6) { animation-delay: 0.6s; color: var(--accent-neon); -webkit-text-stroke: 2px #000; }
+
         .hero-right-desc {
             font-family: 'Segoe UI', sans-serif;
             font-size: 1.15rem;
             line-height: 1.5;
             font-weight: 500;
             color: #222;
+            opacity: 0;
+            animation: revealTextFade 0.6s ease forwards;
+            animation-delay: 0.7s;
         }
         .view-work-btn {
             display: inline-block;
@@ -186,19 +180,22 @@
             margin-top: 25px;
             text-transform: uppercase;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            opacity: 0;
+            animation: revealTextFade 0.6s ease forwards;
+            animation-delay: 0.8s;
         }
         .view-work-btn:hover {
             background: var(--purple-bg);
-            transform: scale(1.05) translateY(-3px);
+            transform: scale(1.03) translateY(-3px);
             box-shadow: 0 10px 20px rgba(90, 26, 255, 0.2);
         }
 
-        /* Hero Capabilities Strip Matrix */
+        /* Hero Matrix Strip Row */
         .hero-matrix-row {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             border-top: 3px solid var(--text-dark);
-            margin-top: 60px;
+            margin-top: 50px;
             padding-top: 25px;
         }
         .matrix-cell {
@@ -215,7 +212,7 @@
         .matrix-cell h4 { font-size: 0.75rem; text-transform: uppercase; color: #555; margin-bottom: 4px; }
         .matrix-cell p { font-size: 0.95rem; font-weight: 900; color: #000; }
 
-        /* --- SELECTED SERVICES GRID (Midnight Black) --- */
+        /* --- SELECTED SERVICES GRID --- */
         .services-section {
             background-color: var(--dark-bg);
             color: var(--text-light);
@@ -231,7 +228,7 @@
             font-size: 4.5rem;
             font-weight: 900;
             text-transform: uppercase;
-            letter-spacing: -3px;
+            letter-spacing: -2px;
             line-height: 0.95;
         }
         .all-services-btn {
@@ -242,10 +239,10 @@
             font-weight: bold;
             font-size: 0.85rem;
             text-transform: uppercase;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .all-services-btn:hover {
-            transform: scale(1.08) rotate(1deg);
+            transform: scale(1.05) rotate(1deg);
             background: #ffffff;
         }
 
@@ -258,32 +255,32 @@
             background: #0d0d0d;
             border: 1px solid #1a1a1a;
             padding: 40px 30px;
-            min-height: 460px;
+            min-height: 450px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s;
         }
         .service-card:hover {
-            transform: translateY(-12px) scale(1.02);
+            transform: translateY(-10px);
             background: #111111;
-            animation: neonGlowGrid 2s infinite linear;
+            animation: neonBorderGlow 2s infinite linear;
         }
         .card-index { font-size: 0.9rem; color: #444; font-weight: bold; }
         .card-main h3 { font-size: 1.8rem; margin: 25px 0 12px 0; text-transform: uppercase; letter-spacing: -1px; line-height: 1.1; transition: color 0.3s ease; }
         .service-card:hover .card-main h3 { color: var(--accent-neon); }
         .card-main p { font-family: 'Segoe UI', sans-serif; color: #999; font-size: 0.95rem; line-height: 1.5; }
-        .card-action { font-size: 0.8rem; font-weight: bold; color: var(--accent-neon); margin-top: 25px; text-transform: uppercase; letter-spacing: 1px; transition: transform 0.3s ease; text-decoration: none; }
-        .service-card:hover .card-action { transform: translateX(5px); }
+        .card-action { font-size: 0.8rem; font-weight: bold; color: var(--accent-neon); margin-top: 25px; text-transform: uppercase; letter-spacing: 1px; text-decoration: none; display: inline-block; transition: transform 0.3s ease; }
+        .service-card:hover .card-action { transform: translateX(4px); }
 
-        /* --- ABOUT ME & STATS MATRIX (Sand Cream Split Layout) --- */
+        /* --- ABOUT ME & STATS MATRIX --- */
         .about-section {
             background-color: var(--about-bg);
             color: var(--text-dark);
             padding: 100px 4%;
             display: grid;
             grid-template-columns: 1.2fr 1fr;
-            gap: 80px;
+            gap: 70px;
             align-items: center;
         }
         .about-profile h2 {
@@ -301,7 +298,6 @@
             color: #222;
         }
         
-        /* 2x2 Grid Layout Matrix */
         .metrics-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -313,13 +309,11 @@
             padding: 45px 30px;
             transition: background 0.3s ease;
         }
-        .metric-box:hover {
-            background: #e6e3da;
-        }
+        .metric-box:hover { background: #e6e3da; }
         .metric-box h3 { font-size: 3.4rem; font-weight: 900; line-height: 1; letter-spacing: -2px; }
         .metric-box p { font-size: 0.8rem; text-transform: uppercase; font-weight: bold; color: #444; margin-top: 8px; }
 
-        /* --- DETAILED CAPABILITIES (Dark Matrix Row) --- */
+        /* --- DETAILED CAPABILITIES --- */
         .capabilities-row {
             background-color: var(--dark-bg);
             color: var(--text-light);
@@ -339,16 +333,13 @@
         .cap-box {
             border-top: 3px solid var(--purple-bg);
             padding-top: 20px;
-            transition: all 0.3s ease;
+            transition: border-color 0.3s ease;
         }
-        .cap-box:hover {
-            border-top-color: var(--accent-neon);
-            transform: translateY(-4px);
-        }
+        .cap-box:hover { border-top-color: var(--accent-neon); }
         .cap-box h4 { font-size: 1.2rem; text-transform: uppercase; margin-bottom: 12px; color: var(--text-light); }
         .cap-box p { font-family: 'Segoe UI', sans-serif; font-size: 0.9rem; color: #888; line-height: 1.5; }
 
-        /* --- STARK UPDATED FOOTER CALL TO ACTION --- */
+        /* --- FOOTER CALL TO ACTION --- */
         .footer-banner {
             background-color: var(--purple-bg);
             color: var(--text-light);
@@ -367,7 +358,6 @@
         }
         .footer-right p { font-size: 0.95rem; font-weight: bold; color: var(--accent-neon); letter-spacing: 1px; text-transform: uppercase; }
         
-        /* Direct Communication Links Styles */
         .footer-links-wrap {
             display: flex;
             flex-direction: column;
@@ -387,26 +377,24 @@
         }
         .footer-links-wrap h3 a:hover { color: var(--accent-neon); }
         
-        /* Distinctive Custom WhatsApp Hover Reaction */
         .footer-links-wrap h3 a.whatsapp-link:hover {
-            color: var(--accent-neon);
             transform: scale(1.02);
         }
         .footer-links-wrap h3 a .fa-whatsapp {
             font-size: 2.6rem;
         }
 
-        /* --- SCREEN SIZE OPTIMIZATIONS --- */
+        /* --- CUSTOM RESIZES & SCALABILITY --- */
         @media(max-width: 1024px) {
             .hero-main, .about-section, .services-grid, .caps-grid, .hero-matrix-row {
                 grid-template-columns: 1fr !important;
+                gap: 40px;
             }
-            .hero-title { font-size: 3.8rem; letter-spacing: -2px; }
+            .hero-title { font-size: 3.6rem; letter-spacing: -2px; }
             .services-header { flex-direction: column; align-items: flex-start; gap: 20px; }
             .footer-banner { flex-direction: column; align-items: flex-start; gap: 40px; }
             .footer-right, .footer-links-wrap { text-align: left; align-items: flex-start; }
             .matrix-cell { border-right: none; border-bottom: 1px solid #ccc; padding: 15px 0; }
-            .cap-box { margin-bottom: 15px; }
         }
     </style>
 </head>
@@ -423,13 +411,13 @@
         </nav>
 
         <div class="hero-main">
-            <h1 class="hero-title reveal-text">
+            <h1 class="hero-title">
                 <span class="word">WEBSITES</span> 
-                <span class="word">THAT</span>
+                <span class="word">THAT</span> 
                 <span class="word">WORK.</span> 
                 <span class="word">SETUP</span> 
-                <span class="word">THAT</span>
-                <span class="word"><span>STAND OUT.</span></span>
+                <span class="word">THAT</span> 
+                <span class="word">STAND OUT.</span>
             </h1>
             <div class="hero-right">
                 <div class="hero-right-desc">
@@ -465,10 +453,7 @@
 
     <section id="services" class="services-section reveal-section">
         <div class="services-header">
-            <h2 class="reveal-text">
-                <span class="word">SELECTED</span>
-                <span class="word">SERVICES.</span>
-            </h2>
+            <h2>SELECTED SERVICES.</h2>
             <a href="mailto:phaaasane020@gmail.com" class="all-services-btn">BOOK A SERVICE ↗</a>
         </div>
         
@@ -504,11 +489,7 @@
 
     <section id="about" class="about-section reveal-section">
         <div class="about-profile">
-            <h2 class="reveal-text">
-                <span class="word">DEVELOPER.</span>
-                <span class="word">PROBLEM</span>
-                <span class="word">SOLVER.</span>
-            </h2>
+            <h2>DEVELOPER. PROBLEM SOLVER.</h2>
             <p>Operating under the Paa Tech banner, I eliminate frustrating environment loops and messy software configuration crashes. Combining structured Python backends with rapid system setups, I optimize client machines to process tasks cleanly.</p>
         </div>
         
@@ -533,12 +514,7 @@
     </section>
 
     <section class="capabilities-row reveal-section">
-        <h2 class="reveal-text">
-            <span class="word">WHAT</span>
-            <span class="word">I</span>
-            <span class="word">CAN</span>
-            <span class="word">DO.</span>
-        </h2>
+        <h2>WHAT I CAN DO.</h2>
         <div class="caps-grid">
             <div class="cap-box">
                 <h4>System Configurations</h4>
@@ -561,18 +537,15 @@
 
     <footer id="contact" class="footer-banner reveal-section">
         <div class="footer-left">
-            <h2 class="reveal-text">
-                 <span class="word">LET'S</span>
-                 <span class="word">BUILD</span>
-                 <span class="word">SOMETHING</span>
-                 <span class="word">AWESOME.</span>
-            </h2>
+            <h2>LET'S</h2>
+            <h2>BUILD</h2>
+            <h2>SOMETHING</h2>
+            <h2>AWESOME.</h2>
         </div>
         <div class="footer-right">
             <p>HAVE A SYSTEM EXCEPTION OR WEBSITE PLATFORM TO BUILD?</p>
             <div class="footer-links-wrap">
                 <h3><a href="mailto:phaaasane020@gmail.com">phaaasane020@gmail.com</a></h3>
-                
                 <h3>
                     <a href="https://wa.me/233508934500" target="_blank" class="whatsapp-link">
                         <i class="fa-brands fa-whatsapp"></i> +233508934500
@@ -586,28 +559,17 @@
         function checkScrollReveal() {
             const sections = document.querySelectorAll(".reveal-section");
             const windowBottom = window.innerHeight;
-            const threshold = 100;
+            const threshold = 80;
 
             sections.forEach(section => {
                 const elementTop = section.getBoundingClientRect().top;
                 if (elementTop < windowBottom - threshold) {
-                    if (!section.classList.contains("active")) {
-                        section.classList.add("active");
-                        
-                        const textTriggers = section.querySelectorAll(".reveal-text .word");
-                        textTriggers.forEach(word => {
-                            word.style.animationPlayState = "running";
-                        });
-                    }
+                    section.classList.add("active");
                 }
             });
         }
-        
-        document.querySelectorAll(".reveal-section .reveal-text .word").forEach(w => {
-            w.style.animationPlayState = "paused";
-        });
-
         window.addEventListener("scroll", checkScrollReveal);
+        window.addEventListener("load", checkScrollReveal);
         checkScrollReveal();
     </script>
 
